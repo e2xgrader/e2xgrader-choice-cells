@@ -23,8 +23,21 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
+    "e2xgrader_core",
 ]
 dynamic = ["version", "description", "authors", "urls", "keywords"]
+
+[project.entry-points."e2xgrader.cell.filters"]
+multiplechoice_filter = "e2xgrader_choice_cells.filters:multiplechoice_filter"
+singlechoice_filter = "e2xgrader_choice_cells.filters:singlechoice_filter"
+
+[project.entry-points."e2xgrader.cell.graders"]
+multiplechoice_grader = "e2xgrader_choice_cells.graders:multiplechoice_grader"
+singlechoice_grader = "e2xgrader_choice_cells.graders:singlechoice_grader"
+
+[project.entry-points."e2xgrader.cell.preprocessors"]
+multiplechoice_preprocessor = "e2xgrader_choice_cells.preprocessors:multiplechoice_preprocessor"
+singlechoice_preprocessor = "e2xgrader_choice_cells.preprocessors:singlechoice_preprocessor"
 
 [tool.hatch.version]
 source = "nodejs"
@@ -75,3 +88,8 @@ before-build-python = ["jlpm clean:all"]
 
 [tool.check-wheel-contents]
 ignore = ["W002"]
+
+[tool.ruff]
+line-length = 100
+ignore-init-module-imports = true
+select = ["F", "E", "I"]
