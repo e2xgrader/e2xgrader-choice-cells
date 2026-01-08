@@ -62,6 +62,7 @@ export namespace MultipleChoice {
     choice.type = 'checkbox';
     choice.name = cell.model.id;
     choice.value = value;
+    choice.id = choice.name + '-' + choice.value;
     choice.checked = selected;
     choice.onchange = event => {
       const elem = event.target as HTMLInputElement;
@@ -97,6 +98,7 @@ export namespace MultipleChoice {
         choices.includes(index.toString())
       );
       const label = document.createElement('label');
+      label.htmlFor = input.id;
       label.innerHTML = item.innerHTML;
       form.appendChild(input);
       form.appendChild(label);
@@ -130,6 +132,7 @@ export namespace SingleChoice {
     choice.type = 'radio';
     choice.name = cell.model.id;
     choice.value = value;
+    choice.id = choice.name + '-' + choice.value;
     choice.checked = selected;
     choice.onchange = event => {
       const elem = event.target as HTMLInputElement;
@@ -162,6 +165,7 @@ export namespace SingleChoice {
         choice === index.toString()
       );
       const label = document.createElement('label');
+      label.htmlFor = input.id;
       label.innerHTML = item.innerHTML;
       form.appendChild(input);
       form.appendChild(label);
