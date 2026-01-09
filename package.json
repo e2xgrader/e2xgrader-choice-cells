@@ -57,7 +57,7 @@
     },
     "dependencies": {
         "@e2xgrader/core": "^0.1.0-a1",
-        "@jupyterlab/application": "^4.0.0"
+        "@jupyterlab/application": "^4.5.1"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",
@@ -85,6 +85,9 @@
         "stylelint-prettier": "^4.0.0",
         "typescript": "~5.0.2",
         "yjs": "^13.5.0"
+    },
+    "resolutions": {
+        "lib0": "0.2.111"
     },
     "sideEffects": [
         "style/*.css",
