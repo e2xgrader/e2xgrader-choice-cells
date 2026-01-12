@@ -76,7 +76,6 @@ export namespace MultipleChoice {
   }
 
   export function renderCell(widget: Widget, cell: E2XMarkdownCell): void {
-    console.log('Rendering MC cell:', cell);
     const html = widget.node;
     const lists = html.querySelectorAll('ul');
     if (lists.length === 0) {
@@ -144,7 +143,6 @@ export namespace SingleChoice {
   }
 
   export function renderCell(widget: Widget, cell: E2XMarkdownCell): void {
-    console.log('Rendering SC cell:', cell);
     const html = widget.node;
     const lists = html.querySelectorAll('ul');
     if (lists.length === 0) {
