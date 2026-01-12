@@ -2,26 +2,25 @@ import json
 from typing import Tuple, Type
 
 import nbgrader.utils as nbgrader_utils
-from e2xgrader_base.cells.e2xgrader import set_e2xgrader_metadata_value
+from e2xgrader_core.cells.e2xgrader import set_e2xgrader_metadata_value
 from nbconvert.exporters.exporter import ResourcesDict
 from nbformat.notebooknode import NotebookNode
 from nbgrader.api import MissingEntry
-from nbgrader.preprocessors import NbGraderPreprocessor
+from nbgrader.preprocessors import NbGraderPreprocessor, OverwriteCells, SaveCells
 
 from .utils import clear_choices
 
 
 class ChoiceCellPreprocessor:
-
     @staticmethod
-    def clear_hidden_tests(
+    def clear_solutions(
         preprocessor: NbGraderPreprocessor,
         cell: NotebookNode,
         resources: ResourcesDict,
         cell_index: int,
     ) -> Tuple[NotebookNode, ResourcesDict]:
         """
-        Preprocess a cell to clear hidden tests.
+        Preprocess a cell to clear solutions.
 
         Args:
             preprocessor (NbGraderPreprocessor): The preprocessor instance.
@@ -39,7 +38,7 @@ class ChoiceCellPreprocessor:
 
     @staticmethod
     def overwrite_cells(
-        preprocessor: NbGraderPreprocessor,
+        preprocessor: OverwriteCells,
         cell: NotebookNode,
         resources: ResourcesDict,
         cell_index: int,
@@ -79,14 +78,14 @@ class ChoiceCellPreprocessor:
         set_e2xgrader_metadata_value(
             cell,
             "source",
-            json.loads(source_cell.source),
+            json.loads(source_cell.source),  # type: ignore[arg-type]
         )
 
         return cell, resources
 
     @staticmethod
     def save_cells(
-        preprocessor: NbGraderPreprocessor,
+        preprocessor: SaveCells,
         cell: NotebookNode,
         resources: ResourcesDict,
         cell_index: int,
