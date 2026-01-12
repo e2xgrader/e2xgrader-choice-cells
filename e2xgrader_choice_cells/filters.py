@@ -12,9 +12,7 @@ from .utils import (
 )
 
 
-def create_input_box(
-    soup: BeautifulSoup, input_type: str, index: int, cell: Dict[str, Any]
-) -> Tag:
+def create_input_box(soup: BeautifulSoup, input_type: str, index: int, cell: Dict[str, Any]) -> Tag:
     """Create an input box for the choice cell.
 
     Args:
@@ -27,7 +25,7 @@ def create_input_box(
     """
     box = soup.new_tag("input")
     box["type"] = input_type
-    box["value"] = index
+    box["value"] = str(index)
     box["disabled"] = "disabled"
     if index in get_choices(cell):
         box["checked"] = "checked"
