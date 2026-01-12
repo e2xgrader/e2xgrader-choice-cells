@@ -13,7 +13,7 @@ class SingleChoiceGrader(BaseGrader):
     """
 
     def determine_grade(
-        self, cell: NotebookNode, log: Logger = None
+        self, cell: NotebookNode, log: Optional[Logger] = None
     ) -> Tuple[Optional[float], float]:
         max_points = float(cell.metadata.get("nbgrader", {}).get("points"))
         student_choices = get_choices(cell)
@@ -34,7 +34,7 @@ class MultipleChoiceGrader(BaseGrader):
     """
 
     def determine_grade(
-        self, cell: NotebookNode, log: Logger = None
+        self, cell: NotebookNode, log: Optional[Logger] = None
     ) -> Tuple[Optional[float], float]:
         max_points = float(cell.metadata.get("nbgrader", {}).get("points"))
         student_choices = get_choices(cell)
