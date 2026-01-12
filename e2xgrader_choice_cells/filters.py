@@ -12,9 +12,7 @@ from .utils import (
 )
 
 
-def create_input_box(
-    soup: BeautifulSoup, input_type: str, index: int, cell: Dict[str, Any]
-) -> Tag:
+def create_input_box(soup: BeautifulSoup, input_type: str, index: int, cell: Dict[str, Any]) -> Tag:
     """Create an input box for the choice cell.
 
     Args:
