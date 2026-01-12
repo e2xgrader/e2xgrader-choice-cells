@@ -27,7 +27,7 @@ def create_input_box(
     """
     box = soup.new_tag("input")
     box["type"] = input_type
-    box["value"] = index
+    box["value"] = str(index)
     box["disabled"] = "disabled"
     if index in get_choices(cell):
         box["checked"] = "checked"
