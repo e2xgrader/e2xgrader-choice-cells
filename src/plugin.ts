@@ -1,6 +1,9 @@
-import { E2xGraderCellRegistry, E2XMarkdownCell } from '@e2xgrader/core';
+import {CellPresets, E2xGraderCellRegistry, E2XMarkdownCell, NbgraderCellType} from '@e2xgrader/core';
+import {Widget} from '@lumino/widgets';
+import {E2xGraderSharedCell} from "@e2xgrader/core/src";
 
-import { Widget } from '@lumino/widgets';
+const BASE_CELL_TYPE: string = 'markdown';
+const NBGRADER_CELL_TYPE: NbgraderCellType = NbgraderCellType.TASK;
 
 export namespace ChoiceCellUtils {
   export function get_choices(cell: E2XMarkdownCell): string[] {
@@ -106,11 +109,30 @@ export namespace MultipleChoice {
     list.replaceWith(form);
   }
 
+  export function getTaskPreset(taskName?: string, points?: number): E2xGraderSharedCell[]{
+    return [
+      {
+        cell_type: BASE_CELL_TYPE,
+        metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {e2xgraderCellType: E2X_MULTIPLECHOICE_CELL_TYPE, taskName: taskName, points: points}),
+        source: [
+            '## Multiplechoice Question\n',
+            '\n',
+            '- Choice 1\n',
+            '- Choice 2\n',
+            '- Choice 3\n',
+            '\n',
+            '<!-- Hint: Add the choices as list items, then run the cell and select the correct answer! -->'
+        ]
+      }
+    ];
+  }
+
   export const cellPlugin: E2xGraderCellRegistry.IE2xGraderCellPlugin = {
     cellType: E2X_MULTIPLECHOICE_CELL_TYPE,
     label: 'Multiple Choice',
     renderCell: renderCell,
-    cleanMetadata: cleanMetadata
+    cleanMetadata: cleanMetadata,
+    getTaskPreset: getTaskPreset
   };
 }
 
@@ -171,11 +193,31 @@ export namespace SingleChoice {
     });
     list.replaceWith(form);
   }
+
+  export function getTaskPreset(taskName?: string, points?: number): E2xGraderSharedCell[]{
+    return [
+      {
+        cell_type: BASE_CELL_TYPE,
+        metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {e2xgraderCellType: E2X_SINGLECHOICE_CELL_TYPE, taskName: taskName, points: points}),
+        source: [
+            '## Singlechoice Question\n',
+            '\n',
+            '- Choice 1\n',
+            '- Choice 2\n',
+            '- Choice 3\n',
+            '\n',
+            '<!-- Hint: Add the choices as list items, then run the cell and select the correct answer! -->'
+        ]
+      }
+    ];
+  }
+
   export const cellPlugin: E2xGraderCellRegistry.IE2xGraderCellPlugin = {
     cellType: E2X_SINGLECHOICE_CELL_TYPE,
     label: 'Single Choice',
     renderCell: renderCell,
-    cleanMetadata: cleanMetadata
+    cleanMetadata: cleanMetadata,
+    getTaskPreset: getTaskPreset
   };
 }
 
