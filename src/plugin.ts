@@ -1,6 +1,12 @@
-import {CellPresets, E2xGraderCellRegistry, E2XMarkdownCell, NbgraderCellType} from '@e2xgrader/core';
-import {Widget} from '@lumino/widgets';
-import {E2xGraderSharedCell} from "@e2xgrader/core/src";
+import {
+  CellPresets,
+  E2xGraderCellRegistry,
+  E2XMarkdownCell,
+  NbgraderCellType,
+  E2xGraderSharedCell
+} from '@e2xgrader/core';
+import { Widget } from '@lumino/widgets';
+import { TranslationBundle } from '@jupyterlab/translation';
 
 const BASE_CELL_TYPE: string = 'markdown';
 const NBGRADER_CELL_TYPE: NbgraderCellType = NbgraderCellType.TASK;
@@ -46,17 +52,16 @@ export namespace ChoiceCellUtils {
   }
 }
 
-export namespace MultipleChoice {
-  export const E2X_MULTIPLECHOICE_CELL_TYPE = 'multiplechoice';
-  export const E2X_MULTIPLECHOICE_FORM_CLASS = 'e2x-multiplechoice-form';
+export class MultipleChoice
+  implements E2xGraderCellRegistry.IE2xGraderCellPlugin
+{
+  public cellType: string = MultipleChoice.E2X_MULTIPLECHOICE_CELL_TYPE;
+  public label: string = this._trans.__('Multiple Choice');
+  public cleanMetadata: Record<string, any> = MultipleChoice.cleanMetadata;
 
-  export const cleanMetadata = {
-    choice: [] as string[],
-    num_of_choices: 0,
-    type: E2X_MULTIPLECHOICE_CELL_TYPE
-  } as Record<string, any>;
+  constructor(private _trans: TranslationBundle) {}
 
-  export function createChoiceElement(
+  createChoiceElement(
     cell: E2XMarkdownCell,
     value: string,
     selected: boolean
@@ -78,7 +83,7 @@ export namespace MultipleChoice {
     return choice;
   }
 
-  export function renderCell(widget: Widget, cell: E2XMarkdownCell): void {
+  public renderCell(widget: Widget, cell: E2XMarkdownCell): void {
     const html = widget.node;
     const lists = html.querySelectorAll('ul');
     if (lists.length === 0) {
@@ -87,14 +92,14 @@ export namespace MultipleChoice {
     const list = lists[0];
     const items = list.querySelectorAll('li');
     const form = document.createElement('form');
-    form.classList.add(E2X_MULTIPLECHOICE_FORM_CLASS);
+    form.classList.add(MultipleChoice.E2X_MULTIPLECHOICE_FORM_CLASS);
     if (ChoiceCellUtils.get_choice_count(cell) !== items.length) {
       ChoiceCellUtils.set_choice_count(cell, items.length);
       ChoiceCellUtils.set_choices(cell, []);
     }
     const choices = ChoiceCellUtils.get_choices(cell);
     items.forEach((item, index) => {
-      const input = createChoiceElement(
+      const input = this.createChoiceElement(
         cell,
         index.toString(),
         choices.includes(index.toString())
@@ -109,42 +114,53 @@ export namespace MultipleChoice {
     list.replaceWith(form);
   }
 
-  export function getTaskPreset(taskName?: string, points?: number): E2xGraderSharedCell[]{
+  public getTaskPreset(
+    taskName?: string,
+    points?: number
+  ): E2xGraderSharedCell[] {
     return [
       {
         cell_type: BASE_CELL_TYPE,
-        metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {e2xgraderCellType: E2X_MULTIPLECHOICE_CELL_TYPE, taskName: taskName, points: points}),
-        source: [
-            '## Multiplechoice Question\n',
-            '\n',
-            '- Choice 1\n',
-            '- Choice 2\n',
-            '- Choice 3\n',
-            '\n',
-            '<!-- Hint: Add the choices as list items, then run the cell and select the correct answer! -->'
-        ]
+        metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {
+          e2xgraderCellType: MultipleChoice.E2X_MULTIPLECHOICE_CELL_TYPE,
+          taskName: taskName,
+          points: points
+        }),
+        source: this._trans.__(
+          '## Multiplechoice Question\n' +
+            '\n' +
+            '- Choice 1\n' +
+            '- Choice 2\n' +
+            '- Choice 3\n' +
+            '\n' +
+            '<!-- Hint: Add the choices as list items, then run the cell and select the correct answer(s). -->'
+        )
       }
     ];
   }
-
-  export const cellPlugin: E2xGraderCellRegistry.IE2xGraderCellPlugin = {
-    cellType: E2X_MULTIPLECHOICE_CELL_TYPE,
-    label: 'Multiple Choice',
-    renderCell: renderCell,
-    cleanMetadata: cleanMetadata,
-    getTaskPreset: getTaskPreset
-  };
 }
 
-export namespace SingleChoice {
-  export const E2X_SINGLECHOICE_CELL_TYPE = 'singlechoice';
-  export const E2X_SINGLECHOICE_FORM_CLASS = 'e2x-singlechoice-form';
-  export const cleanMetadata = {
-    choice: '' as string,
-    type: E2X_SINGLECHOICE_CELL_TYPE
-  } as Record<string, any>;
+export namespace MultipleChoice {
+  export const E2X_MULTIPLECHOICE_CELL_TYPE = 'multiplechoice';
+  export const E2X_MULTIPLECHOICE_FORM_CLASS = 'e2x-multiplechoice-form';
 
-  export function createChoiceElement(
+  export const cleanMetadata = {
+    choice: [] as string[],
+    num_of_choices: 0,
+    type: E2X_MULTIPLECHOICE_CELL_TYPE
+  } as Record<string, any>;
+}
+
+export class SingleChoice
+  implements E2xGraderCellRegistry.IE2xGraderCellPlugin
+{
+  public cellType: string = SingleChoice.E2X_SINGLECHOICE_CELL_TYPE;
+  public label: string = this._trans.__('Single Choice');
+  public cleanMetadata: Record<string, any> = SingleChoice.cleanMetadata;
+
+  constructor(private _trans: TranslationBundle) {}
+
+  createChoiceElement(
     cell: E2XMarkdownCell,
     value: string,
     selected: boolean
@@ -164,7 +180,7 @@ export namespace SingleChoice {
     return choice;
   }
 
-  export function renderCell(widget: Widget, cell: E2XMarkdownCell): void {
+  public renderCell(widget: Widget, cell: E2XMarkdownCell): void {
     const html = widget.node;
     const lists = html.querySelectorAll('ul');
     if (lists.length === 0) {
@@ -173,13 +189,13 @@ export namespace SingleChoice {
     const list = lists[0];
     const items = list.querySelectorAll('li');
     const form = document.createElement('form');
-    form.classList.add(E2X_SINGLECHOICE_FORM_CLASS);
+    form.classList.add(SingleChoice.E2X_SINGLECHOICE_FORM_CLASS);
     const choice = ChoiceCellUtils.get_choice(cell);
     if (choice !== '' && parseInt(choice) >= items.length) {
       ChoiceCellUtils.set_choice(cell, '');
     }
     items.forEach((item, index) => {
-      const input = createChoiceElement(
+      const input = this.createChoiceElement(
         cell,
         index.toString(),
         choice === index.toString()
@@ -194,34 +210,39 @@ export namespace SingleChoice {
     list.replaceWith(form);
   }
 
-  export function getTaskPreset(taskName?: string, points?: number): E2xGraderSharedCell[]{
+  public getTaskPreset(
+    taskName?: string,
+    points?: number
+  ): E2xGraderSharedCell[] {
     return [
       {
         cell_type: BASE_CELL_TYPE,
-        metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {e2xgraderCellType: E2X_SINGLECHOICE_CELL_TYPE, taskName: taskName, points: points}),
-        source: [
-            '## Singlechoice Question\n',
-            '\n',
-            '- Choice 1\n',
-            '- Choice 2\n',
-            '- Choice 3\n',
-            '\n',
-            '<!-- Hint: Add the choices as list items, then run the cell and select the correct answer! -->'
-        ]
+        metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {
+          e2xgraderCellType: SingleChoice.E2X_SINGLECHOICE_CELL_TYPE,
+          taskName: taskName,
+          points: points
+        }),
+        source: this._trans.__(
+          '## Singlechoice Question\n' +
+            '\n' +
+            '- Choice 1\n' +
+            '- Choice 2\n' +
+            '- Choice 3\n' +
+            '\n' +
+            '<!-- Hint: Add the choices as list items, then run the cell and select the correct answer. -->'
+        )
       }
     ];
   }
-
-  export const cellPlugin: E2xGraderCellRegistry.IE2xGraderCellPlugin = {
-    cellType: E2X_SINGLECHOICE_CELL_TYPE,
-    label: 'Single Choice',
-    renderCell: renderCell,
-    cleanMetadata: cleanMetadata,
-    getTaskPreset: getTaskPreset
-  };
 }
 
-export const choiceCellPlugins = [
-  MultipleChoice.cellPlugin,
-  SingleChoice.cellPlugin
-];
+export namespace SingleChoice {
+  export const E2X_SINGLECHOICE_CELL_TYPE = 'singlechoice';
+  export const E2X_SINGLECHOICE_FORM_CLASS = 'e2x-singlechoice-form';
+  export const cleanMetadata = {
+    choice: '' as string,
+    type: E2X_SINGLECHOICE_CELL_TYPE
+  } as Record<string, any>;
+}
+
+export const choiceCellPlugins = [MultipleChoice, SingleChoice];
