@@ -4,9 +4,8 @@ import {
 } from '@jupyterlab/application';
 import { ITranslator, nullTranslator } from '@jupyterlab/translation';
 
-//import { IE2xCellPluginRegistry } from '@e2xgrader/cell-registry';
 import { E2xGraderCellRegistry } from '@e2xgrader/core';
-import { choiceCellPlugins } from './plugin';
+import {MultipleChoice, SingleChoice} from "./plugin";
 
 /**
  * Initialization data for the @e2xgrader/choice-cells extension.
@@ -28,9 +27,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const trans = (translator ?? nullTranslator).load('e2xgrader_choice_cells');
 
     // Register the choice cell plugins
-    choiceCellPlugins.forEach(plugin => {
-      cellRegistry.registerPlugin(new plugin(trans));
-    });
+    cellRegistry.registerPlugin(new SingleChoice(trans));
+    cellRegistry.registerPlugin(new MultipleChoice(trans));
   }
 };
 

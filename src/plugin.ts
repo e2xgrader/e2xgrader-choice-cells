@@ -244,5 +244,3 @@ export namespace SingleChoice {
     type: E2X_SINGLECHOICE_CELL_TYPE
   } as Record<string, any>;
 }
-
-export const choiceCellPlugins = [MultipleChoice, SingleChoice];
