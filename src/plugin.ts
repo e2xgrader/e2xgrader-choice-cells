@@ -9,7 +9,8 @@ import { Widget } from '@lumino/widgets';
 import { TranslationBundle } from '@jupyterlab/translation';
 
 const BASE_CELL_TYPE: string = 'markdown';
-const NBGRADER_CELL_TYPE: NbgraderCellType = NbgraderCellType.TASK;
+const NBGRADER_CELL_TYPE: NbgraderCellType =
+  NbgraderCellType.MANUALLY_GRADED_ANSWER;
 
 export namespace ChoiceCellUtils {
   export function get_choices(cell: E2XMarkdownCell): string[] {

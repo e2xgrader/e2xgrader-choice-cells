@@ -1,0 +1,20 @@
+{
+    "": {
+        "domain": "e2xgrader_choice_cells",
+        "language": "de-DE",
+        "plural_forms": "nplurals=2; plural=(n != 1);",
+        "version": "e2xgrader_choice_cells"
+    },
+    "## Multiplechoice Question\n\n- Choice 1\n- Choice 2\n- Choice 3\n\n<!-- Hint: Add the choices as list items, then run the cell and select the correct answer(s). -->": [
+        "## Multiple-Choice Frage\n\n- Auswahlm\u00f6glichkeit 1\n- Auswahlm\u00f6glichkeit 2\n- Auswahlm\u00f6glichkeit 3\n\n<!-- Tipp: F\u00fcgen Sie die Auswahlm\u00f6glichkeiten als Stichpunkt hinzu, f\u00fchren Sie dann die Zelle aus und w\u00e4hlen die korrekte(n) Antwort(en) aus. -->"
+    ],
+    "## Singlechoice Question\n\n- Choice 1\n- Choice 2\n- Choice 3\n\n<!-- Hint: Add the choices as list items, then run the cell and select the correct answer. -->": [
+        "## Single-Choice Frage\n\n- Auswahlm\u00f6glichkeit 1\n- Auswahlm\u00f6glichkeit 2\n- Auswahlm\u00f6glichkeit 3\n\n<!-- Tipp: F\u00fcgen Sie die Auswahlm\u00f6glichkeiten als Stichpunkt hinzu, f\u00fchren Sie dann die Zelle aus und w\u00e4hlen die korrekte Antwort aus. -->"
+    ],
+    "Multiple Choice": [
+        "Multiple-Choice"
+    ],
+    "Single Choice": [
+        "Single-Choice"
+    ]
+}

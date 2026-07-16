@@ -5,7 +5,7 @@ import {
 import { ITranslator, nullTranslator } from '@jupyterlab/translation';
 
 import { E2xGraderCellRegistry } from '@e2xgrader/core';
-import {MultipleChoice, SingleChoice} from "./plugin";
+import { MultipleChoice, SingleChoice } from './plugin';
 
 /**
  * Initialization data for the @e2xgrader/choice-cells extension.

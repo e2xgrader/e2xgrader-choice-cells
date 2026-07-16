@@ -1,0 +1,58 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: e2xgrader_choice_cells \n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-07-10 10:07+0000\n"
+"PO-Revision-Date: 2026-07-10 10:01+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: de_DE <LL@li.org>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.18.0\n"
+
+
+#: src/plugin.ts:115
+msgid ""
+"## Multiplechoice Question\n"
+"\n"
+"- Choice 1\n"
+"- Choice 2\n"
+"- Choice 3\n"
+"\n"
+"<!-- Hint: Add the choices as list items, then run the cell and select the correct answer(s). -->"
+msgstr "## Multiple-Choice Frage\n"
+"\n"
+"- Auswahlmöglichkeit 1\n"
+"- Auswahlmöglichkeit 2\n"
+"- Auswahlmöglichkeit 3\n"
+"\n"
+"<!-- Tipp: Fügen Sie die Auswahlmöglichkeiten als Stichpunkt hinzu, führen Sie dann die Zelle aus und wählen die korrekte(n) Antwort(en) aus. -->"
+
+#: src/plugin.ts:142
+msgid "Single Choice"
+msgstr "Single-Choice"
+
+#: src/plugin.ts:203
+msgid ""
+"## Singlechoice Question\n"
+"\n"
+"- Choice 1\n"
+"- Choice 2\n"
+"- Choice 3\n"
+"\n"
+"<!-- Hint: Add the choices as list items, then run the cell and select the correct answer. -->"
+msgstr "## Single-Choice Frage\n"
+"\n"
+"- Auswahlmöglichkeit 1\n"
+"- Auswahlmöglichkeit 2\n"
+"- Auswahlmöglichkeit 3\n"
+"\n"
+"<!-- Tipp: Fügen Sie die Auswahlmöglichkeiten als Stichpunkt hinzu, führen Sie dann die Zelle aus und wählen die korrekte Antwort aus. -->"
+
+#: src/plugin.ts:51
+msgid "Multiple Choice"
+msgstr "Multiple-Choice"
