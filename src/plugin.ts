@@ -3,10 +3,11 @@ import {
   E2xGraderCellRegistry,
   E2XMarkdownCell,
   NbgraderCellType,
-  E2xGraderSharedCell
+  E2xGraderSharedCell, E2xGraderMetadata, IE2xCellMetadata
 } from '@e2xgrader/core';
 import { Widget } from '@lumino/widgets';
 import { TranslationBundle } from '@jupyterlab/translation';
+import { ICellMetadata } from '@jupyterlab/nbformat';
 
 const BASE_CELL_TYPE: string = 'markdown';
 const NBGRADER_CELL_TYPE: NbgraderCellType =
@@ -116,7 +117,7 @@ export class MultipleChoice
   }
 
   public getTaskPreset(
-    taskName?: string,
+    task?: E2xGraderMetadata.IE2xGraderTaskMetadata,
     points?: number
   ): E2xGraderSharedCell[] {
     return [
@@ -124,9 +125,9 @@ export class MultipleChoice
         cell_type: BASE_CELL_TYPE,
         metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {
           e2xgraderCellType: MultipleChoice.E2X_MULTIPLECHOICE_CELL_TYPE,
-          taskName: taskName,
+          task: E2xGraderMetadata.getNewTaskMetadata(task),
           points: points
-        }),
+        }) as ICellMetadata & IE2xCellMetadata,
         source: this._trans.__(
           '## Multiplechoice Question\n' +
             '\n' +
@@ -212,7 +213,7 @@ export class SingleChoice
   }
 
   public getTaskPreset(
-    taskName?: string,
+    task?: E2xGraderMetadata.IE2xGraderTaskMetadata,
     points?: number
   ): E2xGraderSharedCell[] {
     return [
@@ -220,9 +221,9 @@ export class SingleChoice
         cell_type: BASE_CELL_TYPE,
         metadata: CellPresets.getCleanMetadata(NBGRADER_CELL_TYPE, {
           e2xgraderCellType: SingleChoice.E2X_SINGLECHOICE_CELL_TYPE,
-          taskName: taskName,
+          task: E2xGraderMetadata.getNewTaskMetadata(task),
           points: points
-        }),
+        }) as ICellMetadata & IE2xCellMetadata,
         source: this._trans.__(
           '## Singlechoice Question\n' +
             '\n' +
