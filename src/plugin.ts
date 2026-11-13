@@ -3,7 +3,9 @@ import {
   E2xGraderCellRegistry,
   E2XMarkdownCell,
   NbgraderCellType,
-  E2xGraderSharedCell, E2xGraderMetadata, IE2xCellMetadata
+  E2xGraderSharedCell,
+  E2xGraderMetadata,
+  IE2xCellMetadata
 } from '@e2xgrader/core';
 import { Widget } from '@lumino/widgets';
 import { TranslationBundle } from '@jupyterlab/translation';
